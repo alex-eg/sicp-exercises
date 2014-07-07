@@ -41,3 +41,31 @@
           ((even? n) (fe-step (square b) (/ n 2) a))
           (else (fe-step b (- n 1) (* a b)))))
   (fe-step b n 1))
+
+;;; 1.17 logarithmic recursive multiplication
+
+(define (my-*-rec a b)
+  ;; essentially binary shifts
+  (define (double a)
+    (* 2 a))
+  (define (half a)
+    (if (even? a) (/ a 2)
+        'error))
+  (cond ((= b 0) 0)
+        ((even? b) (double (my-*-rec a (half b))))
+        (else (+ a (my-*-rec a (- b 1))))))
+
+;;; 1.18 logarithmic iterative multiplication
+
+(define (my-*-it a b)
+  (define (double a)
+    (* 2 a))
+  (define (half a)
+    (if (even? a) (/ a 2)
+        'error))
+  (define (*-iter a b acc)
+    (cond ((= b 0) acc)
+          ((even? b) (*-iter (double a) (half b) acc))
+          (else (*-iter a (- b 1) (+ acc a)))))
+  (*-iter a b 0))
+                     
