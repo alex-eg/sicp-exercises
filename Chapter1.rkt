@@ -32,3 +32,12 @@
   (define (root3-improve guess x)
     (/ (+ (* 2 guess) (/ x (square guess))) 3))
   (root3-iter 1.0 x))
+
+;;; 1.16 fast exponent calculation (logaritmic time) as iterative process
+
+(define (fast-expt b n)
+  (define (fe-step b n a)
+    (cond ((= n 0) a)
+          ((even? n) (fe-step (square b) (/ n 2) a))
+          (else (fe-step b (- n 1) (* a b)))))
+  (fe-step b n 1))
