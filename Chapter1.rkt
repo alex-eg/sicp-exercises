@@ -69,7 +69,7 @@
           (else (*-iter a (- b 1) (+ acc a)))))
   (*-iter a b 0))
                      
-;;; 1.19 logarithmic Fibonatti numbers
+;;; 1.19 logarithmic Fibonacci numbers
 
 (define (fib n)
   (define (fib-iter a b p q count)
