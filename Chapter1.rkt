@@ -118,3 +118,11 @@
          (sum 1 (- n 1) (λ (k) (* 4 (yk k))) (λ (k) (+ k 2)))
          (sum 2 (- n 2) (λ (k) (* 2 (yk k))) (λ (k) (+ k 2))))))
 
+;;; 1.32 Generic accumulation
+
+(define (accumulate combiner null-value a b term next)
+  (define (iter a result)
+    (if (> a b)
+        result
+        (iter (next a) (combiner result (term a)))))
+  (iter a null-value))
