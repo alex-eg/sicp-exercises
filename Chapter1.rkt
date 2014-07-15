@@ -69,7 +69,7 @@
           (else (*-iter a (- b 1) (+ acc a)))))
   (*-iter a b 0))
                      
-;;; 1.19 logarithmic Fibonatti numbers
+;;; 1.19 logarithmic Fibonacci numbers
 
 (define (fib n)
   (define (fib-iter a b p q count)
@@ -86,3 +86,28 @@
                           q
                           (- count 1)))))
   (fib-iter 1 0 0 1 n))
+
+;;; 1.29 Simpson integration
+
+(define (sum a b term next)
+  (if (> a b)
+      0
+      (+ (term a) (sum (next a) b term next))))
+
+;; simple
+(define (integral f a b dx)
+  (define (add-dx x) (+ x dx))
+  (* (sum (+ a (/ dx 2)) b f add-dx)
+     dx))
+
+;; simpson
+(define (simpson f a b n)
+  (define h (/ (- b a) n))
+  (define (yk k)
+    (f (+ a (* k h))))
+ 
+  (* (/ h 3)
+      (+ (yk 0) (yk n)
+         (sum 1 (- n 1) (λ (k) (* 4 (yk k))) (λ (k) (+ k 2)))
+         (sum 2 (- n 2) (λ (k) (* 2 (yk k))) (λ (k) (+ k 2))))))
+
