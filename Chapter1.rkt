@@ -126,3 +126,35 @@
         result
         (iter (next a) (combiner result (term a)))))
   (iter a null-value))
+
+;;; 1.35 Golden ratio
+
+(define (fixed-point f first-guess tolerance)
+  (define (close-enough? v1 v2)
+    (< (abs (- v1 v2)) tolerance))
+  (define (try guess)
+    (let ((next (f guess)))
+      (if (close-enough? guess next)
+          next
+          (try next))))
+  (try first-guess))
+
+(define (fixed-point-steps f first-guess tolerance)
+  (define (close-enough? v1 v2)
+    (< (abs (- v1 v2)) tolerance))
+  (define (try guess step)
+    (display "guess: ")
+    (display guess)
+    (newline)
+    (display "step: ")
+    (display step)
+    (newline)
+    (let ((next (f guess)))
+      (if (close-enough? next guess)
+          next
+          (try next (+ 1 step)))))
+  (try first-guess 0))
+
+(define (golden-ratio)
+  (fixed-point (λ (x) (+ 1 (/ 1 x))) 1.0 1e-6))
+
