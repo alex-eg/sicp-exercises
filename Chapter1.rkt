@@ -195,3 +195,10 @@
        (display (d i))
        (newline)
        (my-loop k d (+ i 1)))))
+
+;;; 1.39 Lambert's tangent
+
+(define (tan-cf x k)
+  (cont-frac-iter (λ (i) (if (= i 0) x (- (* x x))))
+                  (λ (i) (+ (* 2 i) 1))
+                  k))
