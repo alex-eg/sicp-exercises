@@ -139,6 +139,8 @@
           (try next))))
   (try first-guess))
 
+;;; 1.36 Fixed point step counting
+
 (define (fixed-point-steps f first-guess tolerance)
   (define (close-enough? v1 v2)
     (< (abs (- v1 v2)) tolerance))
@@ -158,3 +160,20 @@
 (define (golden-ratio)
   (fixed-point (λ (x) (+ 1 (/ 1 x))) 1.0 1e-6))
 
+;;; 1.37 Continued fraction
+
+(define (cont-frac n d k)
+  (define (rec i)
+    (if (= i k)
+        (/ (n k) (d k))
+        (/ (n k) ( + (d k) (rec (+ i 1))))))
+  (rec 1))
+
+(define (cont-frac-iter n d k)
+  (define (iter i result)
+    (if (= i 0)
+        result
+        (iter (- i 1) 
+              (/ (n i) (+ (d i) result)))))
+  (iter k 0))
+        
