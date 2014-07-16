@@ -165,13 +165,13 @@
 (define (cont-frac n d k)
   (define (rec i)
     (if (= i k)
-        (/ (n k) (d k))
-        (/ (n k) ( + (d k) (rec (+ i 1))))))
-  (rec 1))
+        (/ (n i) (d i))
+        (/ (n i) ( + (d i) (rec (+ i 1))))))
+  (rec 0))
 
 (define (cont-frac-iter n d k)
   (define (iter i result)
-    (if (= i 0)
+    (if (< i 0)
         result
         (iter (- i 1) 
               (/ (n i) (+ (d i) result)))))
