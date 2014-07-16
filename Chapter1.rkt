@@ -179,6 +179,19 @@
 
 ;;; 1.38 Eulers function
 
-(define euler-e
-  (define num 1)
-  (cont-frac ))
+(define (euler-e k)
+  (cont-frac-iter (λ (x) 1.0)
+                  (λ (x) (if (= (remainder x 3) 1)
+                             (* (+ (quotient x 3) 1) 2.0)
+                             1.0))
+                  k))
+
+(define (my-loop k d i)
+    (cond 
+      ((> k i)
+       (display "i: ")
+       (display i)
+       (display " val: ")
+       (display (d i))
+       (newline)
+       (my-loop k d (+ i 1)))))
