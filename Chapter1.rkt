@@ -176,4 +176,9 @@
         (iter (- i 1) 
               (/ (n i) (+ (d i) result)))))
   (iter k 0))
-        
+
+;;; 1.38 Eulers function
+
+(define euler-e
+  (define num 1)
+  (cont-frac ))
