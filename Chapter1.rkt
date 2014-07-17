@@ -202,3 +202,9 @@
   (cont-frac-iter (λ (i) (if (= i 0) x (- (* x x))))
                   (λ (i) (+ (* 2 i) 1))
                   k))
+
+;;; just useful function
+
+(define (average a b)
+  (/ (+ a b) 2))
+
