@@ -228,3 +228,10 @@
   (newtons-method (lambda (y) (- (* y y) x))
                   1.0))
 
+;;; 1.40 cubic equations
+
+(define (cubic a b c)
+  (lambda (y)
+    ()))
+    
+  
