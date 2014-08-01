@@ -241,3 +241,48 @@
 (define (double fun)
   (λ (x) (fun (fun x))))
 
+;;; 1.42 compose
+
+(define (compose f g)
+  (λ (x) (f (g x))))
+
+
+;;; 1.43 repeated application
+
+(define (repeated f n)
+  (if (<= n 1)
+      f
+      (compose f (repeated f (- n 1)))))
+
+;;; 1.44 function smoothing
+
+(define (smooth f dx)
+  (λ (x) (/ (+ (f (- x dx))
+               (f x)
+               (f (+ x dx)))
+            3)))
+
+(define (n-smooth f dx n)
+  ((repeated smooth n) f dx))
+
+;;; 1.46 iterative improvement
+
+(define (iterate-improve good-enough? improve)
+  (define (improve-step guess)
+    (if (good-enough? guess)
+        guess
+        (improve-step (improve guess))))
+  improve-step)
+
+(define (sqrt-new x)
+  ((iterate-improve
+   (λ (guess) (< (abs (- (square guess) x)) 0.001))
+   (λ (guess) (/ (+ guess (/ x guess)) 2.0)))
+   x))
+
+(define (fixed-point-new f first-guess tolerance)
+  ((iterate-improve 
+    (λ (guess) (< (abs (- guess (f guess)))
+                  tolerance))
+    (λ (guess) (f guess)))
+   first-guess))
