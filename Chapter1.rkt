@@ -231,7 +231,14 @@
 ;;; 1.40 cubic equations
 
 (define (cubic a b c)
-  (lambda (y)
-    ()))
+  (λ (x)
+    (+ (* x x x) (* a x x) (* b x) c)))
+
+(define (newtons-cubic a b c)
+  (newtons-method (cubic a b c) 1.0))
     
-  
+;;; 1.41 double
+
+(define (double fun)
+  (λ (x) (fun (fun x))))
+
