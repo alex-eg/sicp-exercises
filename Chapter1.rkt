@@ -213,19 +213,19 @@
 ;; (x^3)' - 3x^2, x = 5 => (x^3)' = 75
 ;; ((deriv (lambda (x) (* x x x)) 0.00001) 5) => 75.00014999664018
 (define (deriv g dx)
-  (lambda (x) (/ (- (g (+ x dx))
+  (λ (x) (/ (- (g (+ x dx))
                     (g x))
                  dx)))
 
 (define (newton-transform g dx)
-  (lambda (x)
+  (λ (x)
     (- x (/ (g x) ((deriv g dx) x)))))
 
 (define (newtons-method g guess)
   (fixed-point (newton-transform g 0.00001) guess 0.001))
 
 (define (newtons-sqrt x)
-  (newtons-method (lambda (y) (- (* y y) x))
+  (newtons-method (λ (y) (- (* y y) x))
                   1.0))
 
 ;;; 1.40 cubic equations
