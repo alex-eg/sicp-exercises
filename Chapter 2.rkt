@@ -117,3 +117,26 @@
 
 (define (two)
   (λ (f) (λ (x) (f (f x)))))
+
+;;; 2.17
+
+(define (last-pair list)
+  (if (null? (cdr list)) list
+      (last-pair (cdr list))))
+
+;;; 2.18
+
+(define (reverse list)
+  (define (reverse-it list acc)
+    (if (null? list) acc
+        (reverse-it (cdr list) (cons (car list) acc))))
+  (reverse-it list null))
+
+;;; 2.20
+
+(define (same-parity f . s)
+  (define (par-it list acc)
+    (if (null? list) acc
+        (if (= (remainder (car list) 2)
+               (remainder f 2))
+            (par-it (cdr list) (cons (car list ...
