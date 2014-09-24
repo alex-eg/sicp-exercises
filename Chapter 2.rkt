@@ -139,4 +139,6 @@
     (if (null? list) acc
         (if (= (remainder (car list) 2)
                (remainder f 2))
-            (par-it (cdr list) (cons (car list ...
+            (par-it (cdr list) (cons (car list) acc))
+            (par-it (cdr list) acc))))
+  (par-it s '()))
